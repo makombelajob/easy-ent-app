@@ -1,0 +1,73 @@
+<footer class="bg-dark text-white mt-5">
+	<div class="container py-4">
+		<div
+			class="row">
+			<!-- À propos -->
+			<div class="col-md-4 mb-3">
+				<h5 class="text-primary">ENT Facile</h5>
+				<p>Plateforme intuitive pour la gestion scolaire, les notes, paiements et communications entre élèves, parents et enseignants.</p>
+			</div>
+
+			<!-- Liens rapides -->
+            <div class="col-md-4 mb-3">
+                <h5 class="text-primary">Liens rapides</h5>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="{{ path('app_home') }}" class="text-white text-decoration-none">Accueil</a>
+                    </li>
+
+                    {% if app.user %}
+                        <li>
+                            <a href="{{ path('app_profile') }}" class="text-white text-decoration-none">Mon Profil</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_logout') }}" class="text-white text-decoration-none">Logout</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('app_login') }}" class="text-white text-decoration-none">Login</a>
+                        </li>
+                    {% endif %}
+
+                    <li>
+                        <a href="{{ path('app_home') }}#contact" class="text-white text-decoration-none">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- Contact -->
+			<div class="col-md-4 mb-3">
+				<h5 class="text-primary">Contact</h5>
+				<p>
+					<i class="fas fa-envelope me-2"></i>support@ent-facile.fr</p>
+				<p>
+					<i class="fas fa-phone me-2"></i>+33 7 61 07 80 91</p>
+				<div>
+					<a href="#">
+						<i class="fa-brands fa-facebook"></i>
+					</a>
+					<a href="#">
+						<i class="fa-brands fa-linkedin"></i>
+					</a>
+					<a href="#">
+						<i class="fa-brands fa-instagram"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<hr class="bg-secondary">
+
+		<div class="text-center">
+			&copy;
+			{{ "now"|date("Y") }}
+			ENT Facile. Tous droits réservés.
+		</div>
+	</div>
+</footer>
+
+<style>
+
+</style>
+

@@ -1,0 +1,269 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Accueil - ENT Facile
+{% endblock %}
+
+{% block body %}
+	<main>
+		<!-- Notiifcations après envoie du message -->
+
+		<!-- Section d'accueil / Hero -->
+        <section class="hero-section bg-primary py-5" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold mb-4">Bienvenue sur ENT Facile</h1>
+                        <p class="lead mb-4">L'Espace Numérique de Travail moderne et intuitif pour les établissements scolaires privés.</p>
+                        <div class="d-flex gap-3">
+                            {% if app.user %}
+                                <a href="{{ path('app_profile') }}" class="btn btn-light btn-lg">
+                                    <i class="fas fa-user-circle me-2"></i>Mon profil
+                                </a>
+                                <a href="{{ path('app_logout') }}" class="btn btn-outline-light btn-lg">
+                                    <i class="fas fa-sign-out-alt me-2"></i>Se déconnecter
+                                </a>
+                            {% else %}
+                                <a href="{{ path('app_login') }}" class="btn btn-light btn-lg">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                                </a>
+                                <a href="{{ path('app_register') }}" class="btn btn-outline-light btn-lg">
+                                    <i class="fas fa-user-plus me-2"></i>S'inscrire
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <i class="fas fa-graduation-cap" style="font-size: 8rem; opacity: 0.7;"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Section cartes utilisateurs -->
+		<section class="container my-5" aria-label="Nos utilisateurs">
+		{% for label, messages in app.flashes %}
+    		{% for message in messages %}
+        		<div class="alert alert-{{ label }} alert-dismissible fade show mt-3" role="alert">
+            		<i class="fas fa-info-circle me-2"></i> {{ message }}
+            		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+       			 </div>
+    		{% endfor %}
+		{% endfor %}
+			<div class="row">
+				<article class="col-lg-4 mb-4">
+					<div class="card h-100 text-center">
+						<div class="card-body">
+							<i class="fas fa-user-graduate text-primary mb-3" style="font-size: 3rem;"></i>
+							<h5 class="card-title">Élèves</h5>
+							<p class="card-text">Consultez vos notes, vos résultats et contactez l'administration facilement.</p>
+						</div>
+					</div>
+				</article>
+				<article class="col-lg-4 mb-4">
+					<div class="card h-100 text-center">
+						<div class="card-body">
+							<i class="fas fa-users text-success mb-3" style="font-size: 3rem;"></i>
+							<h5 class="card-title">Parents</h5>
+							<p class="card-text">Suivez la scolarité de vos enfants et gérez les paiements en ligne.</p>
+						</div>
+					</div>
+				</article>
+				<article class="col-lg-4 mb-4">
+					<div class="card h-100 text-center">
+						<div class="card-body">
+							<i class="fas fa-chalkboard-teacher text-warning mb-3" style="font-size: 3rem;"></i>
+							<h5 class="card-title">Enseignants</h5>
+							<p class="card-text">Gérez vos cours, notez vos élèves et suivez leur progression.</p>
+						</div>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<!-- Section avantages -->
+		<section class="bg-light py-5" aria-label="Pourquoi choisir ENT Facile ?">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 mx-auto text-center">
+						<h2 class="mb-4">Pourquoi choisir ENT Facile ?</h2>
+						<div class="row">
+							<article class="col-md-4 mb-3 text-center">
+								<i class="fas fa-shield-alt text-primary mb-2" style="font-size: 2rem;"></i>
+								<h6>Sécurisé</h6>
+								<p class="text-muted">Données protégées et accès sécurisé</p>
+							</article>
+							<article class="col-md-4 mb-3 text-center">
+								<i class="fas fa-mobile-alt text-primary mb-2" style="font-size: 2rem;"></i>
+								<h6>Responsive</h6>
+								<p class="text-muted">Accessible sur tous vos appareils</p>
+							</article>
+							<article class="col-md-4 mb-3 text-center">
+								<i class="fas fa-clock text-primary mb-2" style="font-size: 2rem;"></i>
+								<h6>24/7</h6>
+								<p class="text-muted">Disponible à tout moment</p>
+							</article>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Section statistiques -->
+		<section class="container my-5" aria-label="Statistiques">
+			<div class="row text-center">
+				<article class="col-md-3 mb-4">
+					<div class="stats-card p-4 rounded">
+						<div class="stats-number">500+</div>
+						<p>Écoles connectées</p>
+					</div>
+				</article>
+				<article class="col-md-3 mb-4">
+					<div class="stats-card p-4 rounded">
+						<div class="stats-number">12000+</div>
+						<p>Élèves actifs</p>
+					</div>
+				</article>
+				<article class="col-md-3 mb-4">
+					<div class="stats-card p-4 rounded">
+						<div class="stats-number">3000+</div>
+						<p>Parents inscrits</p>
+					</div>
+				</article>
+				<article class="col-md-3 mb-4">
+					<div class="stats-card p-4 rounded">
+						<div class="stats-number">800+</div>
+						<p>Enseignants actifs</p>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<!-- Section témoignages -->
+		<section class="bg-light py-5" aria-label="Témoignages">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 mx-auto text-center">
+						<h2 class="mb-4">Ils nous font confiance</h2>
+						<div class="carousel slide" id="testimonialCarousel" data-bs-ride="carousel">
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<p class="lead">"ENT Facile a transformé notre quotidien scolaire !"</p>
+									<small class="text-muted">- Mme Dupont, Directrice</small>
+								</div>
+								<div class="carousel-item">
+									<p class="lead">"Mes enfants et moi suivons tout en un seul endroit, c'est super pratique."</p>
+									<small class="text-muted">- M. Martin, Parent</small>
+								</div>
+								<div class="carousel-item">
+									<p class="lead">"L'interface est intuitive et moderne, j'adore !"</p>
+									<small class="text-muted">- Mme Leroy, Enseignante</small>
+								</div>
+							</div>
+							<button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+								<span class="carousel-control-prev-icon"></span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+								<span class="carousel-control-next-icon"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Section FAQ -->
+		<section class="container my-5" aria-label="Questions fréquentes">
+			<h2 class="text-center mb-4">Questions fréquentes</h2>
+			<div class="accordion" id="faqAccordion">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="faq1">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true">
+							Comment créer un compte ?
+						</button>
+					</h2>
+					<div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+						<div class="accordion-body">
+							Cliquez sur "S'inscrire", remplissez le formulaire et confirmez votre email.
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="faq2">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+							L'application est-elle sécurisée ?
+						</button>
+					</h2>
+					<div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+						<div class="accordion-body">
+							Oui, toutes vos données sont cryptées et protégées par nos serveurs sécurisés.
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="faq3">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+							Quels appareils sont compatibles ?
+						</button>
+					</h2>
+					<div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+						<div class="accordion-body">
+							ENT Facile est compatible sur ordinateur, tablette et smartphone.
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="contact" class="py-5 bg-light">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-12 text-center mb-4">
+						<h2 class="fw-bold">Contactez-nous</h2>
+						<p class="text-muted">Une question ? Une suggestion ? Envoyez-nous un message.</p>
+					</div>
+
+					<div class="col-12 col-md-8 col-lg-6">
+						<div class="card shadow-sm border-0">
+							<div class="card-body p-4">
+								{{ form_start(form ) }}
+
+								<div class="row g-3">
+									<div class="col-12 col-md-6">
+										{{ form_row(form.firstName) }}
+									</div>
+									<div class="col-12 col-md-6">
+										{{ form_row(form.lastName) }}
+									</div>
+								</div>
+
+								<div class="mt-3">
+									{{ form_row(form.email) }}
+								</div>
+
+								<div class="mt-3">
+									{{ form_row(form.subject) }}
+								</div>
+
+								<div class="mt-3">
+									{{ form_row(form.message) }}
+								</div>
+
+								<div class="text-center mt-4">
+									<button type="submit" class="btn btn-primary btn-lg px-4">
+										<i class="fas fa-paper-plane me-2"></i>
+										Envoyer
+									</button>
+								</div>
+
+								{{ form_end(form) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+{% endblock %}

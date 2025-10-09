@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - ENT Facile
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card shadow">
+					<div class="card-body p-5">
+						<div class="text-center mb-4">
+							<i class="fas fa-user-plus text-primary mb-3" style="font-size: 3rem;"></i>
+							<h3 class="card-title">Inscription</h3>
+							<p class="text-muted">Créez votre compte étudiant</p>
+						</div>
+                        
+                        {# return to home page button #}
+                        {% include('_partials/_home.html.twig') %}
+
+						{{ form_start(registrationForm) }}
+						<div class="row">
+							<div class="col-md-6">
+								<div class="mb-3">
+									{{ form_label(registrationForm.firstName, null, {'label_attr': {'class': 'form-label'}}) }}
+									{{ form_widget(registrationForm.firstName) }}
+									{{ form_errors(registrationForm.firstName) }}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="mb-3">
+									{{ form_label(registrationForm.lastName, null, {'label_attr': {'class': 'form-label'}}) }}
+									{{ form_widget(registrationForm.lastName) }}
+									{{ form_errors(registrationForm.lastName) }}
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							{{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+							{{ form_widget(registrationForm.email) }}
+							{{ form_errors(registrationForm.email) }}
+						</div>
+
+						<div class="mb-3">
+							{{ form_label(registrationForm.phone, null, {'label_attr': {'class': 'form-label'}}) }}
+							{{ form_widget(registrationForm.phone) }}
+							{{ form_errors(registrationForm.phone) }}
+						</div>
+
+						<div class="mb-3">
+							{{ form_label(registrationForm.plainPassword, null, {'label_attr': {'class': 'form-label'}}) }}
+							{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+							{{ form_errors(registrationForm.plainPassword) }}
+						</div>
+
+						<div class="mb-3 form-check">
+							{{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+							{{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
+							{{ form_errors(registrationForm.agreeTerms) }}
+						</div>
+
+						<div class="d-grid">
+							<button class="btn btn-primary btn-lg" type="submit">
+								<i class="fas fa-user-plus me-2"></i>S'inscrire
+							</button>
+						</div>
+						{{ form_end(registrationForm) }}
+
+						<div class="text-center mt-4">
+							<p class="mb-0">Déjà un compte ?
+								<a href="{{ path('app_login') }}" class="text-decoration-none">Se connecter</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

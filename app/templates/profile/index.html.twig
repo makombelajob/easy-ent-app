@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord - {{ student.firstName ?? 'Utilisateur' }}{% endblock %}
+
+{% block body %}
+    <section>
+    <div class="d-flex justify-content-between align-items-center mt-2 mb-2 px-2">
+        <!-- Titre -->
+        <h2 class="mb-0">
+            <i class="fas fa-tachometer-alt me-2"></i>Tableau de bord
+        </h2>
+
+        <!-- Logout -->
+        {% if app.user %}
+            <a href="{{ path('app_logout') }}"
+               class="btn btn-outline-danger d-flex align-items-center p-2"
+               style="margin-left: 0.5rem; font-size: 1rem;">
+                <i class="fas fa-sign-out-alt me-1" style="font-size: 1.2rem;"></i>
+                <span class="d-none d-md-inline">Se déconnecter</span>
+            </a>
+        {% endif %}
+    </div>
+
+    <!-- Badge sous le titre -->
+    <div class="px-2 mb-3">
+    <span class="badge bg-primary fs-6">
+        {{ student.class ?? 'Classe non définie' }} - {{ student.level ?? 'Niveau non défini' }}
+    </span>
+    </div>
+
+    </section>
+
+    <section class="row mb-4 mx-1">
+        <article class="col-md-3 mb-2">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line mb-2" style="font-size: 2rem;"></i>
+                    <div class="stats-number">{{ averageGrade is not null ? averageGrade|number_format(2) : 'N/A' }}</div>
+                    <div>Moyenne générale</div>
+                </div>
+            </div>
+        </article>
+        <article class="col-md-3 mb-2">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-book mb-2" style="font-size: 2rem;"></i>
+                    <div class="stats-number">{{ courses ? courses|length : 0 }}</div>
+                    <div>Cours suivis</div>
+                </div>
+            </div>
+        </article>
+        <article class="col-md-3 mb-2">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-credit-card mb-2" style="font-size: 2rem;"></i>
+                    <div class="stats-number">{{ pendingPayments ? pendingPayments|length : 0 }}</div>
+                    <div>Paiements en attente</div>
+                </div>
+            </div>
+        </article>
+        <article class="col-md-3 mb-2">
+            <div class="card stats-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar mb-2" style="font-size: 2rem;"></i>
+                    <div class="stats-number">
+                        {% if student.dateOfBirth is defined and student.dateOfBirth %}
+                            {{ (date('now').diff(student.dateOfBirth)).y }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </div>
+                    <div>Âge</div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Notes récentes</h5>
+                </div>
+                <div class="card-body">
+                    {% if grades and grades|length > 0 %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Cours</th>
+                                    <th>Note</th>
+                                    <th>Type</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for grade in grades %}
+                                    <tr>
+                                        <td>{{ grade.courses ? grade.courses.name : 'Cours non défini' }}</td>
+                                        <td>
+                                            <span class="badge bg-{{ grade.value >= 10 ? 'success' : 'danger' }}">
+                                                {{ grade.value }}/20
+                                            </span>
+                                        </td>
+                                        <td>{{ grade.type|title }}</td>
+                                        <td>{{ grade.createdAt ? grade.createdAt|date('d/m/Y') : 'N/A' }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-chart-line text-muted mb-3" style="font-size: 3rem;"></i>
+                            <p class="text-muted">Aucune note disponible pour le moment.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Paiements en attente</h5>
+                </div>
+                <div class="card-body">
+                    {% if pendingPayments and pendingPayments|length > 0 %}
+                        {% for payment in pendingPayments %}
+                            <div class="d-flex justify-content-between align-items-center mb-3 p-2 border rounded">
+                                <div>
+                                    <div class="fw-bold">{{ payment.type }}</div>
+                                    <small class="text-muted">{{ payment.dueDate ? payment.dueDate|date('d/m/Y') : 'N/A' }}</small>
+                                </div>
+                                <div class="text-end">
+                                    <div class="fw-bold text-danger">{{ payment.amount }}€</div>
+                                    {% if payment.dueDate and payment.dueDate < date('now') %}
+                                        <small class="text-danger">En retard</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <a href="" class="btn btn-outline-primary btn-sm w-100">
+                            Voir tous les paiements
+                        </a>
+                    {% else %}
+                        <div class="text-center py-3">
+                            <i class="fas fa-check-circle text-success mb-2" style="font-size: 2rem;"></i>
+                            <p class="text-muted mb-0">Aucun paiement en attente</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Informations</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <strong>Numéro étudiant:</strong><br>
+                        <span class="text-muted">{{ student.studentNumber ?? 'N/A' }}</span>
+                    </div>
+                    <div class="mb-2">
+                        <strong>Classe:</strong><br>
+                        <span class="text-muted">{{ student.class ?? 'Non définie' }}</span>
+                    </div>
+                    <div class="mb-2">
+                        <strong>Niveau:</strong><br>
+                        <span class="text-muted">{{ student.level ?? 'Non défini' }}</span>
+                    </div>
+                    {% if parent %}
+                        <div class="mb-2">
+                            <strong>Parent:</strong><br>
+                            <span class="text-muted">
+							{# {{ parents.firstName }} {{ parent.lastName }} #}
+							</span>
+                        </div>
+                    {% else %}
+                        <div class="mb-2">
+                            <strong>Parent:</strong><br>
+                            <span class="text-muted">Non défini</span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
