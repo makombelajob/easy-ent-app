@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="200" viewBox="0 0 600 200" role="img" aria-label="ENT-Facile logo">
+  <title>ENT-Facile</title>
+  <defs>
+    <style type="text/css"><![CDATA[
+      .brand { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-weight:700; }
+      .ent { font-size: 48px; fill:#0d6efd; letter-spacing:1px; }
+      .facile { font-size: 40px; fill:#0d6efd; font-weight:500; }
+      .icon-bg { fill:#0d6efd; }
+      .icon-screen { fill:#ffffff; }
+    ]]></style>
+  </defs>
+
+  <!-- Left icon: rounded square with a small monitor -->
+  <g transform="translate(20,20)">
+    <rect class="icon-bg" x="0" y="0" width="120" height="120" rx="18" ry="18"/>
+    <!-- monitor frame -->
+    <rect class="icon-screen" x="22" y="22" width="76" height="56" rx="6" ry="6"/>
+    <!-- screen lines (simulate text) -->
+    <rect x="32" y="36" width="56" height="6" rx="3" fill="#e9f2ff"/>
+    <rect x="32" y="50" width="36" height="6" rx="3" fill="#e9f2ff"/>
+    <!-- stand -->
+    <rect x="50" y="82" width="20" height="6" rx="3" fill="#ffffff"/>
+    <rect x="44" y="90" width="32" height="6" rx="3" fill="#dfeeff"/>
+  </g>
+
+  <!-- Brand text -->
+  <g transform="translate(160,110)">
+    <text class="brand ent" x="0" y="-6">ENT</text>
+    <text class="brand facile" x="82" y="-2">Facile</text>
+  </g>
+</svg>

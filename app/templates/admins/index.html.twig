@@ -1,20 +1,174 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello AdminsController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/symfony_test/AI-test/ent-facile.fr/app/src/Controller/AdminsController.php</code></li>
-        <li>Your template at <code>/home/symfony_test/AI-test/ent-facile.fr/app/templates/admins/index.html.twig</code></li>
-    </ul>
-</div>
+{% block title %}Espace Administrateur
 {% endblock %}
+{% block body %}
+
+	<div class="container mt-5">
+		<h1 class="text-center mb-4">Tableau de bord Administrateur</h1>
+
+		<div
+			class="row g-4">
+			<!-- === ÉTUDIANTS === -->
+			<div class="col-12 col-lg-6">
+				<div class="card shadow-sm">
+					<div class="card-header bg-primary text-white">
+						<h5 class="mb-0">Étudiants</h5>
+					</div>
+					<div class="card-body table-responsive">
+						<table class="table table-striped align-middle">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Classe</th>
+									<th>Niveau</th>
+									<th>Date de naissance</th>
+									<th>Adresse</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for student in students %}
+									<tr>
+										<td>{{ student.id }}</td>
+										<td>{{ student.class }}</td>
+										<td>{{ student.level }}</td>
+										<td>{{ student.dateOfBirth|date('d/m/Y') }}</td>
+										<td>{{ student.address }}</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="5" class="text-center text-muted">Aucun étudiant trouvé</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- === ENSEIGNANTS === -->
+			<div class="col-12 col-lg-6">
+				<div class="card shadow-sm">
+					<div class="card-header bg-success text-white">
+						<h5 class="mb-0">Enseignants</h5>
+					</div>
+					<div class="card-body table-responsive">
+						<table class="table table-striped align-middle">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Numéro</th>
+									<th>Spécialité</th>
+									<th>Département</th>
+									<th>Date d'embauche</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for teacher in teachers %}
+									<tr>
+										<td>{{ teacher.id }}</td>
+										<td>{{ teacher.teacherNumber }}</td>
+										<td>{{ teacher.speciality }}</td>
+										<td>{{ teacher.department }}</td>
+										<td>{{ teacher.hireDate ? teacher.hireDate|date('d/m/Y') : '-' }}</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="5" class="text-center text-muted">Aucun enseignant trouvé</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- === PARENTS === -->
+			<div class="col-12 col-lg-6">
+				<div class="card shadow-sm">
+					<div class="card-header bg-warning">
+						<h5 class="mb-0">Parents</h5>
+					</div>
+					<div class="card-body table-responsive">
+						<table class="table table-striped align-middle">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Profession</th>
+									<th>Entreprise</th>
+									<th>Enfants</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for parentUser in parents %}
+									<tr>
+										<td>{{ parentUser.id }}</td>
+										<td>{{ parentUser.profession }}</td>
+										<td>{{ parentUser.workspace }}</td>
+										<td>{{ parentUser.students|length }}</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="4" class="text-center text-muted">Aucun parent trouvé</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<!-- === PAIEMENTS === -->
+			<div class="col-12 col-lg-6">
+				<div class="card shadow-sm">
+					<div class="card-header bg-danger text-white">
+						<h5 class="mb-0">Paiements / Factures</h5>
+					</div>
+					<div class="card-body table-responsive">
+						<table class="table table-striped align-middle">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Montant (€)</th>
+									<th>Type</th>
+									<th>Statut</th>
+									<th>Échéance</th>
+									<th>Facture</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for payment in payments %}
+									<tr>
+										<td>{{ payment.id }}</td>
+										<td>{{ payment.amount }}</td>
+										<td>{{ payment.type }}</td>
+										<td>
+											{% if payment.status == 'paid' %}
+												<span class="badge bg-success">Payé</span>
+											{% elseif payment.status == 'pending' %}
+												<span class="badge bg-warning text-dark">En attente</span>
+											{% else %}
+												<span class="badge bg-danger">Échoué</span>
+											{% endif %}
+										</td>
+										<td>{{ payment.dueDate|date('d/m/Y') }}</td>
+										<td>
+											<a href="{{ path('admin_invoice', { id: payment.id }) }}" class="btn btn-sm btn-outline-primary">
+												🧾 Générer
+											</a>
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="6" class="text-center text-muted">Aucun paiement trouvé</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+

@@ -12,13 +12,39 @@
 
         <!-- Logout -->
         {% if app.user %}
-            <a href="{{ path('app_logout') }}"
-               class="btn btn-outline-danger d-flex align-items-center p-2"
-               style="margin-left: 0.5rem; font-size: 1rem;">
-                <i class="fas fa-sign-out-alt me-1" style="font-size: 1.2rem;"></i>
-                <span class="d-none d-md-inline">Se déconnecter</span>
-            </a>
+            <div class="dropdown d-inline-block" style="margin-left: 0.5rem;">
+                <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center p-2"
+                        type="button"
+                        id="userDropdown"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        style="font-size: 1rem;">
+                    <i class="fas fa-user me-1" style="font-size: 1.2rem;"></i>
+                    <span class="d-inline d-md-none">{{ app.user.firstName }}</span> {# mobile seulement #}
+                    <span class="d-none d-md-inline">{{ app.user.email }}</span> {# desktop seulement #}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                    <li>
+                        <a class="dropdown-item" href="{{ path('app_profile') }}">
+                            <i class="fas fa-id-badge me-1"></i> Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="">
+                            <i class="fas fa-cog me-1"></i> Settings
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
         {% endif %}
+
+
     </div>
 
     <!-- Badge sous le titre -->

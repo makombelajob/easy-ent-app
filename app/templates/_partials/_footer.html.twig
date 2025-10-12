@@ -5,53 +5,79 @@
 			<!-- À propos -->
 			<div class="col-md-4 mb-3">
 				<h5 class="text-primary">ENT Facile</h5>
-				<p>Plateforme intuitive pour la gestion scolaire, les notes, paiements et communications entre élèves, parents et enseignants.</p>
+				<p>
+					Plateforme intuitive pour la gestion scolaire, les notes, paiements et communications
+					                    entre élèves, parents et enseignants.
+				</p>
 			</div>
 
 			<!-- Liens rapides -->
-            <div class="col-md-4 mb-3">
-                <h5 class="text-primary">Liens rapides</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="{{ path('app_home') }}" class="text-white text-decoration-none">Accueil</a>
-                    </li>
+			<div class="col-md-4 mb-3">
+				<h5 class="text-primary">Liens rapides</h5>
+				<ul class="list-unstyled">
+					<li class="mb-2">
+						<a href="{{ path('app_home') }}" class="text-white text-decoration-none">
+							<i class="fas fa-home me-2"></i>Accueil
+						</a>
+					</li>
 
-                    {% if app.user %}
-                        <li>
-                            <a href="{{ path('app_profile') }}" class="text-white text-decoration-none">Mon Profil</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('app_logout') }}" class="text-white text-decoration-none">Logout</a>
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ path('app_login') }}" class="text-white text-decoration-none">Login</a>
-                        </li>
-                    {% endif %}
+					{% if app.user %}
+						<li class="mb-2">
+							{% if 'ROLE_ADMIN' in app.user.roles %}
+								<a href="{{ path('app_admins') }}" class="text-white text-decoration-none">
+									<i class="fas fa-user-shield me-2"></i>Mon Profil
+								</a>
+							{% elseif 'ROLE_PARENT' in app.user.roles %}
+								<a href="{{ path('app_parent') }}" class="text-white text-decoration-none">
+									<i class="fas fa-users me-2"></i>Mon Profil
+								</a>
+							{% elseif 'ROLE_TEACHER' in app.user.roles %}
+								<a href="{{ path('app_teacher') }}" class="text-white text-decoration-none">
+									<i class="fas fa-chalkboard-teacher me-2"></i>Mon Profil
+								</a>
+							{% else %}
+								<a href="{{ path('app_profile') }}" class="text-white text-decoration-none">
+									<i class="fas fa-user me-2"></i>Mon Profil
+								</a>
+							{% endif %}
+						</li>
+						<li class="mb-2">
+							<a href="{{ path('app_logout') }}" class="text-white text-decoration-none">
+								<i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+							</a>
+						</li>
+					{% else %}
+						<li class="mb-2">
+							<a href="{{ path('app_login') }}" class="text-white text-decoration-none">
+								<i class="fas fa-sign-in-alt me-2"></i>Connexion
+							</a>
+						</li>
+					{% endif %}
 
-                    <li>
-                        <a href="{{ path('app_home') }}#contact" class="text-white text-decoration-none">Contact</a>
-                    </li>
-                </ul>
-            </div>
+					<li class="mb-2">
+						<a href="{{ path('app_home') }}#contact" class="text-white text-decoration-none">
+							<i class="fas fa-envelope me-2"></i>Contact
+						</a>
+					</li>
+				</ul>
+			</div>
 
-
-            <!-- Contact -->
+			<!-- Contact -->
 			<div class="col-md-4 mb-3">
 				<h5 class="text-primary">Contact</h5>
 				<p>
 					<i class="fas fa-envelope me-2"></i>support@ent-facile.fr</p>
 				<p>
 					<i class="fas fa-phone me-2"></i>+33 7 61 07 80 91</p>
-				<div>
-					<a href="#">
-						<i class="fa-brands fa-facebook"></i>
+				<div class="d-flex gap-3 mt-3">
+					<a href="#" class="text-white">
+						<i class="fab fa-facebook fa-lg"></i>
 					</a>
-					<a href="#">
-						<i class="fa-brands fa-linkedin"></i>
+					<a href="#" class="text-white">
+						<i class="fab fa-linkedin fa-lg"></i>
 					</a>
-					<a href="#">
-						<i class="fa-brands fa-instagram"></i>
+					<a href="#" class="text-white">
+						<i class="fab fa-instagram fa-lg"></i>
 					</a>
 				</div>
 			</div>
@@ -59,15 +85,11 @@
 
 		<hr class="bg-secondary">
 
-		<div class="text-center">
+		<div class="text-center small">
 			&copy;
 			{{ "now"|date("Y") }}
 			ENT Facile. Tous droits réservés.
 		</div>
 	</div>
 </footer>
-
-<style>
-
-</style>
 
